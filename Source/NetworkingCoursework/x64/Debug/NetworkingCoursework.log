@@ -1,0 +1,2 @@
+﻿  Main.cpp
+g:\hairy zodiacs\uni\vs\third year\networking\networkingcoursework\networkingcoursework\networkingcoursework\main.cpp(1): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
