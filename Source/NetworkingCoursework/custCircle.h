@@ -5,6 +5,8 @@ class custCircle : public sf::Drawable , public sf::Transformable
 {
 public:
 	custCircle(float radius, float time, float freq, float amplitude, int resolution = 20);
+	void applyWave(float radius, float time, float freq, float amplitude);
+	void reset(float radius);
 	~custCircle();
 
 

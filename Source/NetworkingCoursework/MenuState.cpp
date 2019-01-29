@@ -4,7 +4,7 @@
 
 MenuState::MenuState(sf::RenderWindow* hwnd, Input* in) : GameState(hwnd, in)
 {
-	amplitude = 20;
+	amplitude = 10;
 	freq = 13;
 
 	time = 0;
@@ -47,29 +47,29 @@ MenuState::MenuState(sf::RenderWindow* hwnd, Input* in) : GameState(hwnd, in)
 	menuSelectSymbol.setFillColor(sf::Color::White);
 	menuSelectSymbol.setOutlineColor(sf::Color::White);
 	menuSelectSymbol.setCharacterSize(25);
+
+	circle = new custCircle(100, time * 7, freq, amplitude, 350);
+	circle->setPosition(sf::Vector2f(400, 300));
+
+	waveA = new Wave(10, 3, 4);
+	waveB = new Wave(8, 6, 8);
+	waveC = new Wave(6, 9, 12);
+	waveD = new Wave(4, 12, 16);
 }
 
 
 MenuState::~MenuState()
 {
-
+	delete circle;
 }
 
 void MenuState::init()
 {
+
 }
 
 void MenuState::handleInput(float deltaTime)
 {
-	
-}
-
-GameState* MenuState::update(float dt)
-{ 
-	time += dt;
-	delete circle;
-	circle = new custCircle(100, time*7, freq, amplitude, 350);
-	circle->setPosition(sf::Vector2f(400, 300));
 	//handle menu options should put this in handle input
 	if (input->isKeyDown(sf::Keyboard::W))
 	{
@@ -90,6 +90,42 @@ GameState* MenuState::update(float dt)
 			menuSelect = 0;
 		}
 		input->setKeyUp(sf::Keyboard::S);
+	}
+
+
+	if (input->isKeyDown(sf::Keyboard::Z))
+	{
+		waveA->setPressed(true);
+	}
+	else
+	{
+		waveA->setPressed(false);
+	}
+	if (input->isKeyDown(sf::Keyboard::X))
+	{
+		waveB->setPressed(true);
+	}
+	else
+	{
+		waveB->setPressed(false);
+	}
+
+	if (input->isKeyDown(sf::Keyboard::C))
+	{
+		waveC->setPressed(true);
+	}
+	else
+	{
+		waveC->setPressed(false);
+	}
+
+	if (input->isKeyDown(sf::Keyboard::V))
+	{
+		waveD->setPressed(true);
+	}
+	else
+	{
+		waveD->setPressed(false);
 	}
 
 	if (menuSelect == 0)
@@ -131,6 +167,21 @@ GameState* MenuState::update(float dt)
 	{
 		window->close();
 	}
+}
+
+GameState* MenuState::update(float dt)
+{ 
+	time += dt;
+	waveA->update();
+	waveB->update();
+	waveC->update();
+	waveD->update();
+	circle->applyWave(100, time * waveA->getSpeed(), waveA->getFrequency(), waveA->getAmplitude());
+	circle->applyWave(100, time * waveB->getSpeed(), waveB->getFrequency(), waveB->getAmplitude());
+	circle->applyWave(100, time * waveC->getSpeed(), waveC->getFrequency(), waveC->getAmplitude());
+	circle->applyWave(100, time * waveD->getSpeed(), waveD->getFrequency(), waveD->getAmplitude());
+
+
 
 	menuSelectSymbol.setPosition(sf::Vector2f(80, 200 + (menuSelect * 40)));
 
@@ -150,4 +201,6 @@ void MenuState::render()
 	window->draw(*circle);
 
 	endDraw();
+
+	circle->reset(100);
 }

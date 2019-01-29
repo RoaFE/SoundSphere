@@ -1,6 +1,7 @@
 #pragma once
 #include "GameState.h"
 #include "custCircle.h"
+#include "Wave.h"
 //Main menu state
 class MenuState :
 	public GameState
@@ -36,6 +37,11 @@ private:
 
 	float amplitude;
 	float freq;
+
+	Wave* waveA;
+	Wave* waveB;
+	Wave* waveC;
+	Wave* waveD;
 
 	sf::Font font;
 };

@@ -25,6 +25,12 @@
     <Filter Include="Source Files\States">
       <UniqueIdentifier>{3d30b261-43d7-4ba0-8dba-a49d95ab3884}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameObjects">
+      <UniqueIdentifier>{57349390-b9df-40af-950a-4d97f2f10e92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameObjects">
+      <UniqueIdentifier>{742eb5cd-053b-4327-9733-a2cf76eb77c5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -46,7 +52,10 @@
       <Filter>Source Files\SpriteObjects</Filter>
     </ClCompile>
     <ClCompile Include="custCircle.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\SpriteObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Wave.cpp">
+      <Filter>Source Files\GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -65,8 +74,11 @@
     <ClInclude Include="MenuState.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
+    <ClInclude Include="Wave.h">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
     <ClInclude Include="custCircle.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\SpriteObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

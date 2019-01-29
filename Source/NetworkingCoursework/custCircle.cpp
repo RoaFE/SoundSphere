@@ -13,6 +13,33 @@ custCircle::custCircle(float radius, float time,float freq, float amplitude, int
 		float x = cos((i * angle) * 3.142 / 180) * radius;
 		float y = sin((i * angle) * 3.142 / 180) * radius;
 
+		//apply the displacement
+		x = x;
+		y = y;
+		//push the second vertex
+		vertices.push_back(sf::Vertex(sf::Vector2f(x, y), sf::Color::White,sf::Vector2f(abs(x), y)));
+
+		//repeat for the next vertex
+		x = cos(((i + 1) * angle) * 3.142 / 180) * radius;
+		y = sin(((i + 1) * angle) * 3.142 / 180) * radius;		
+
+		x = x;
+		y = y;
+
+		vertices.push_back(sf::Vertex(sf::Vector2f(x, y), sf::Color::White , sf::Vector2f(abs(x), y)));
+	}
+}
+
+void custCircle::applyWave(float radius, float time, float freq, float amplitude)
+{
+	float angle = 360 / float(vertices.size() / 3);
+
+	for (int i = 0; i < (vertices.size() / 3); i++) {
+		int pos = i * 3;
+		//calcuate x and y coord for second vertex
+		float x = cos((i * angle) * 3.142 / 180) * radius;
+		float y = sin((i * angle) * 3.142 / 180) * radius;
+
 		//find the normalise componenet
 		float normalise = 1 / sqrt((x*x) + (y*y));
 
@@ -22,7 +49,7 @@ custCircle::custCircle(float radius, float time,float freq, float amplitude, int
 		if (i * angle > 180)
 		{
 			float invAngle = float(180) - ((float(i) * angle) - 180);
-			float amplitudeMod = (90 - abs(90 - invAngle))/90;
+			float amplitudeMod = (90 - abs(90 - invAngle)) / 90;
 			x_displace = sin(((invAngle) * 3.142 / 180 * freq) + time) * x * normalise * amplitude * amplitudeMod;
 			y_displace = sin(((invAngle) * 3.142 / 180 * freq) + time) * y * normalise * amplitude * amplitudeMod;
 		}
@@ -33,11 +60,9 @@ custCircle::custCircle(float radius, float time,float freq, float amplitude, int
 			y_displace = sin(((i * angle) * 3.142 / 180 * freq) + time) * y * normalise * amplitude * amplitudeMod;
 		}
 
-		//apply the displacement
-		x = x + x_displace;
-		y = y + y_displace;
 		//push the second vertex
-		vertices.push_back(sf::Vertex(sf::Vector2f(x, y), sf::Color::White,sf::Vector2f(abs(x), y)));
+		vertices[pos + 1].position += sf::Vector2f(x_displace, y_displace);
+
 
 		//repeat for the next vertex
 		x = cos(((i + 1) * angle) * 3.142 / 180) * radius;
@@ -60,11 +85,31 @@ custCircle::custCircle(float radius, float time,float freq, float amplitude, int
 			y_displace = sin((((i + 1) * angle) * 3.142 / 180 * freq) + time) * y * normalise * amplitude * amplitudeMod;
 		}
 
-		x = x + x_displace;
-		y = y + y_displace;
 
-		vertices.push_back(sf::Vertex(sf::Vector2f(x, y), sf::Color::White , sf::Vector2f(abs(x), y)));
+		vertices[pos + 2].position += sf::Vector2f(x_displace, y_displace);
 	}
+
+}
+
+void custCircle::reset(float radius)
+{
+	float angle = 360 / float(vertices.size() / 3);
+
+	for (int i = 0; i < (vertices.size() / 3); i++) {
+		int pos = i * 3;
+		//calcuate x and y coord for second vertex
+		float x = cos((i * angle) * 3.142 / 180) * radius;
+		float y = sin((i * angle) * 3.142 / 180) * radius;
+
+		vertices[pos + 1].position = sf::Vector2f(x, y);
+
+		//repeat for the next vertex
+		x = cos(((i + 1) * angle) * 3.142 / 180) * radius;
+		y = sin(((i + 1) * angle) * 3.142 / 180) * radius;
+
+		vertices[pos + 2].position = sf::Vector2f(x, y);
+	}
+
 }
 
 custCircle::~custCircle()
