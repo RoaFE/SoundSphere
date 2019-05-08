@@ -5,7 +5,8 @@ class custCircle : public sf::Drawable , public sf::Transformable
 {
 public:
 	custCircle(float radius, float time, float freq, float amplitude, int resolution = 20);
-	void applyWave(float radius, float time, float freq, float amplitude);
+	void applyContinousWave(float time, float freq, float amplitude);
+	void applyWave(float angle, float freq, float amplitude, float speed);
 	void reset(float radius);
 	~custCircle();
 
@@ -28,6 +29,7 @@ private:
 
 	std::vector<sf::Vertex> vertices;
 	sf::Texture m_texture;
+	float radi;
 
 };
 

@@ -7,13 +7,14 @@ Wave::Wave(float amplitude, float speed, float frequency)
 	freq = frequency;
 	currentHeight = 0;
 	isPressed = false;
+	step = 0;
 }
 
 Wave::~Wave()
 {
 }
 
-void Wave::update()
+void Wave::update(float dt)
 {
 	if (isPressed)
 	{
@@ -37,4 +38,6 @@ void Wave::update()
 			currentHeight = 0;
 		}
 	}
+
+	step += speedMultiplier * dt;
 }
